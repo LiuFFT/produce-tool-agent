@@ -207,4 +207,39 @@ public class MyCustomAgent extends BaseReActAgent {
 
 ## 许可证
 
-MIT License 
+MIT License
+
+# Produce Tool Agent 项目
+
+## 安全配置 API 密钥
+
+为了安全地使用API密钥而不将其提交到GitHub，请按照以下步骤操作：
+
+### 方法一：使用环境变量（推荐）
+
+1. 在IDEA中配置运行参数：
+   - 打开"Run/Debug Configurations"
+   - 在"Environment variables"字段中添加：`OPENAI_API_KEY=你的密钥`
+
+   ![IDEA配置](https://i.imgur.com/example.png)
+
+2. 或者，在命令行中启动项目：
+   ```bash
+   OPENAI_API_KEY=你的密钥 ./mvnw spring-boot:run
+   ```
+
+### 方法二：使用Profile和本地配置文件
+
+1. 我们已创建`application-local.yml`文件，它已被添加到`.gitignore`中
+2. 在IDEA中配置启动Profile：
+   - 打开"Run/Debug Configurations"
+   - 在"Active profiles"字段中添加：`local`
+
+### 方法三：使用命令行参数
+
+通过以下方式启动应用：
+```bash
+./mvnw spring-boot:run -Dspring.ai.openai.api-key=你的密钥
+```
+
+**注意：** 永远不要将实际的API密钥提交到版本控制系统中。 
