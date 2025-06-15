@@ -1,0 +1,33 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: produce-tool-agent
+  ai:
+    openai:
+      base-url: https://dashscope.aliyuncs.com/compatible-mode
+      api-key: sk-0e0c53a9c32b41a5a82c56dead30bbee
+      model: qwen3-0.6b
+
+logging:
+  level:
+    com.example.agent: INFO
+    org.springframework.ai: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+agent:
+  config:
+    max-iterations: 10
+    thinking-depth: 3
+    timeout-seconds: 300
+  
+  tools:
+    enabled: true
+    timeout-seconds: 60
+
+  model:
+    name: qwen-max
+    temperature: 0.7
+  max-steps: 20 
