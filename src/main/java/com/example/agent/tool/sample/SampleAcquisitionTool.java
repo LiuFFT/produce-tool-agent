@@ -61,6 +61,15 @@ public class SampleAcquisitionTool extends AbstractAgentTool {
         try {
             SampleAcquisitionParams acqParams = (SampleAcquisitionParams) params;
             
+            // 检查是否只有通用输入
+            if (acqParams.getInput() != null && acqParams.getSourceType() == null) {
+                // 使用input作为数据需求
+                log.info("使用通用输入作为数据需求: {}", acqParams.getInput());
+                acqParams.setSourceType("publicDataset");
+                acqParams.setSource("generated");
+                acqParams.setSampleCount(1000);
+            }
+            
             // 获取数据源类型
             String sourceType = acqParams.getSourceType();
             if (sourceType == null) {
@@ -97,10 +106,16 @@ public class SampleAcquisitionTool extends AbstractAgentTool {
             }
             
             // 返回获取结果
-            return ToolExecutionResult.success(String.format(
+            String resultMessage = String.format(
                 "样本获取成功。共获取 %d 条样本，保存路径：%s，数据格式：%s",
                 sampleCount, savePath, format
-            ));
+            );
+            
+            if (acqParams.getInput() != null) {
+                resultMessage = resultMessage + "\n基于需求: " + acqParams.getInput();
+            }
+            
+            return ToolExecutionResult.success(resultMessage);
             
         } catch (Exception e) {
             log.error("样本获取失败", e);
